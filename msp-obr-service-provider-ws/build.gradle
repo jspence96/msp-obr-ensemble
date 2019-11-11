@@ -1,0 +1,38 @@
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "src/main/resources"
+            includes = ["**/*.properties"]
+        }
+    }
+}
+
+bootJar {
+    enabled = true
+    classifier = 'boot'
+}
+
+jar {
+    manifest {
+        attributes "Implementation-Title" : "MSP OBR Managed Service Providers",
+                    "Implementation-Version" : 1.0
+    }
+    enabled = true
+}
+
+dependencies {
+    compile project(':msp-obr-service-provider-common')
+    compile "javax.ws.rs:jsr311-api:1.1.1"
+    compile "org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
+}

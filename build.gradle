@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.6.RELEASE")
+        classpath("org.springframework:springloaded:1.2.6.RELEASE")
+    }
+}
+
+plugins {
+    id 'java'
+    id "org.springframework.boot" version "2.1.6.RELEASE"
+}
+
+
+group 'msp-obr-ensemble'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+project.ext.set("springBootVersion", "2.1.6.RELEASE")
+project.ext.set("springCoreVersion", "5.1.8.RELEASE")
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+
+    repositories {
+        jcenter()
+    }
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
