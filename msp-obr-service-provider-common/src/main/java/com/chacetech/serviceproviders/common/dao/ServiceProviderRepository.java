@@ -3,12 +3,14 @@ package com.chacetech.serviceproviders.common.dao;
 import com.chacetech.serviceproviders.common.exception.ServiceProviderException;
 import com.chacetech.serviceproviders.common.model.ManagedServiceProvider;
 import com.chacetech.serviceproviders.common.model.ManagedServiceProviderCreateRequest;
+import com.chacetech.serviceproviders.common.model.ManagedServiceProviderUpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.MongoConverter;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -52,12 +54,12 @@ public class ServiceProviderRepository implements  IServiceProviderRepository{
         return managedServiceProviders;
     }
 
-    public void createManagedServiceProvider(ManagedServiceProviderCreateRequest managedServiceProviderCreateRequest) {
-        ManagedServiceProvider managedServiceProvider = createManagedServiceProviderData(managedServiceProviderCreateRequest);
+    public void create(ManagedServiceProviderCreateRequest managedServiceProviderCreateRequest) {
+        ManagedServiceProvider managedServiceProvider = createManagedServiceProvider(managedServiceProviderCreateRequest);
         mongoTemplate.insert(managedServiceProvider, MANAGED_SERVICE_PROVIDERS_COLLECTION);
     }
 
-    private ManagedServiceProvider createManagedServiceProviderData(ManagedServiceProviderCreateRequest managedServiceProviderCreateRequest) {
+    private ManagedServiceProvider createManagedServiceProvider(ManagedServiceProviderCreateRequest managedServiceProviderCreateRequest) {
         ManagedServiceProvider managedServiceProvider = new ManagedServiceProvider();
         managedServiceProvider.setMspName(managedServiceProviderCreateRequest.getMspName().toUpperCase());
 
@@ -98,10 +100,55 @@ public class ServiceProviderRepository implements  IServiceProviderRepository{
         }
 
         return managedServiceProvider;
+    }
 
-
-
+    public void update(ManagedServiceProvider managedServiceProvider, ManagedServiceProviderUpdateRequest managedServiceProviderUpdateRequest) {
+        updateManagedServiceProvider(managedServiceProvider, managedServiceProviderUpdateRequest);
+        org.bson.Document document = new org.bson.Document();
+        mongoConverter.write(managedServiceProvider, document);
+        Query query = new Query().addCriteria(Criteria.where("mspName").is(
+                managedServiceProvider.getMspName().toUpperCase()));
+        Update update = Update.fromDocument(document);
+        mongoTemplate.upsert(query, update, MANAGED_SERVICE_PROVIDERS_COLLECTION);
     }
 
 
+    private void updateManagedServiceProvider(ManagedServiceProvider managedServiceProvider,
+                                              ManagedServiceProviderUpdateRequest managedServiceProviderUpdateRequest) {
+        if (!StringUtils.isEmpty(managedServiceProviderUpdateRequest.getAddress())) {
+            managedServiceProvider.setAddress(managedServiceProviderUpdateRequest.getAddress());
+        } else {
+            managedServiceProvider.setAddress("");
+        }
+
+        if (!StringUtils.isEmpty(managedServiceProviderUpdateRequest.getCity())) {
+            managedServiceProvider.setCity((managedServiceProviderUpdateRequest.getCity()));
+        } else {
+            managedServiceProvider.setCity("");
+        }
+
+        if (!StringUtils.isEmpty(managedServiceProviderUpdateRequest.getState())) {
+            managedServiceProvider.setState(managedServiceProviderUpdateRequest.getState());
+        } else {
+            managedServiceProvider.setState("");
+        }
+
+        if (!StringUtils.isEmpty(managedServiceProviderUpdateRequest.getZipCode())) {
+            managedServiceProvider.setZipCode(managedServiceProviderUpdateRequest.getZipCode());
+        } else {
+            managedServiceProvider.setZipCode("");
+        }
+
+        if (!StringUtils.isEmpty(managedServiceProviderUpdateRequest.getContactPerson())) {
+            managedServiceProvider.setContactPerson(managedServiceProviderUpdateRequest.getContactPerson());
+        } else {
+            managedServiceProvider.setContactPerson("");
+        }
+
+        if (!StringUtils.isEmpty(managedServiceProviderUpdateRequest.getContactPhone())) {
+            managedServiceProvider.setContactPhone(managedServiceProviderUpdateRequest.getContactPhone());
+        } else {
+            managedServiceProvider.setContactPhone("");
+        }
+    }
 }
