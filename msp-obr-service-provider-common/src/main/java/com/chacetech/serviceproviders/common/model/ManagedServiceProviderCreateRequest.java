@@ -1,18 +1,11 @@
 package com.chacetech.serviceproviders.common.model;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.io.Serializable;
 
-@Document(collection = "MANAGED_SERVICE_PROVIDERS")
-public class ManagedServiceProvider implements Serializable {
+public class ManagedServiceProviderCreateRequest implements Serializable {
 
-    private static final long serialVersionUID = -6498095929493541232L;
+    private static final long serialVersionUID = 22590641985997656L;
 
-    @Id
-    private String id;
     private String mspName;
     private String address;
     private String city;
@@ -20,14 +13,6 @@ public class ManagedServiceProvider implements Serializable {
     private String zipCode;
     private String contactPerson;
     private String contactPhone;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getMspName() {
         return mspName;
