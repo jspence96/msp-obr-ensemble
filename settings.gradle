@@ -2,4 +2,5 @@ rootProject.name = 'msp-obr-ensemble'
 include 'msp-obr-service-provider-common'
 include 'msp-obr-service-provider-ws'
 include 'msp-obr-user-common'
+include 'msp-obr-common'
 

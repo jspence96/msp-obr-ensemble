@@ -1,5 +1,6 @@
 package com.chacetech.serviceproviders.common.dao;
 
+import com.chacetech.common.service.MspSequenceGeneratorService;
 import com.chacetech.serviceproviders.common.exception.ServiceProviderException;
 import com.chacetech.serviceproviders.common.model.ManagedServiceProvider;
 import com.chacetech.serviceproviders.common.model.ManagedServiceProviderCreateRequest;
@@ -23,12 +24,15 @@ public class ServiceProviderRepository implements  IServiceProviderRepository{
 
     private final MongoTemplate mongoTemplate;
     private final MongoConverter mongoConverter;
+    private final MspSequenceGeneratorService mspSequenceGeneratorService;
 
     @Autowired
     public ServiceProviderRepository(MongoTemplate mongoTemplate,
-                                     MongoConverter mongoConverter) {
+                                     MongoConverter mongoConverter,
+                                     MspSequenceGeneratorService mspSequenceGeneratorService) {
         this.mongoTemplate = mongoTemplate;
         this.mongoConverter = mongoConverter;
+        this.mspSequenceGeneratorService = mspSequenceGeneratorService;
     }
 
     public  List<ManagedServiceProvider> findAll() {
@@ -61,6 +65,7 @@ public class ServiceProviderRepository implements  IServiceProviderRepository{
 
     private ManagedServiceProvider createManagedServiceProvider(ManagedServiceProviderCreateRequest managedServiceProviderCreateRequest) {
         ManagedServiceProvider managedServiceProvider = new ManagedServiceProvider();
+        managedServiceProvider.setMspId(mspSequenceGeneratorService.generateSequence());
         managedServiceProvider.setMspName(managedServiceProviderCreateRequest.getMspName().toUpperCase());
 
         if (!StringUtils.isEmpty(managedServiceProviderCreateRequest.getAddress())) {

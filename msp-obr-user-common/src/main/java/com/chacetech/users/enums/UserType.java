@@ -1,6 +1,7 @@
 package com.chacetech.users.enums;
 
 public enum UserType {
-    ADMINISTRATOR,
-    REGULAR_USER
+    SUPER_USER,
+    MSP_ADMIN,
+    MSP_USER
 }

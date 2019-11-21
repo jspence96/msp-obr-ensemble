@@ -15,6 +15,7 @@ public class User implements  Serializable {
     @Id
     private String id;
     private UserType userType;
+    private String mspId;
     private String userName;
     private String password;
     private List<AccessLevel> accessLevels;
@@ -25,6 +26,14 @@ public class User implements  Serializable {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
+    }
+
+    public String getMspId() {
+        return mspId;
+    }
+
+    public void setMspId(String mspId) {
+        this.mspId = mspId;
     }
 
     public String getUserName() {

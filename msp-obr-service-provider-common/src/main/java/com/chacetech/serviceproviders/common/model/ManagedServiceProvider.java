@@ -2,6 +2,7 @@ package com.chacetech.serviceproviders.common.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
@@ -11,8 +12,12 @@ public class ManagedServiceProvider implements Serializable {
 
     private static final long serialVersionUID = -6498095929493541232L;
 
+    @Transient
+    public static final String SEQUENCE_NAME = "managed_service_provider_sequence";
+
     @Id
     private String id;
+    private long mspId;
     private String mspName;
     private String address;
     private String city;
@@ -27,6 +32,14 @@ public class ManagedServiceProvider implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public long getMspId() {
+        return mspId;
+    }
+
+    public void setMspId(long mspId) {
+        this.mspId = mspId;
     }
 
     public String getMspName() {
