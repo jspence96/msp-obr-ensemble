@@ -3,4 +3,6 @@ include 'msp-obr-service-provider-common'
 include 'msp-obr-service-provider-ws'
 include 'msp-obr-user-common'
 include 'msp-obr-common'
+//include 'msp-obr-user-service-ws'
+//include 'msp-obr-user-manager-ws'
 

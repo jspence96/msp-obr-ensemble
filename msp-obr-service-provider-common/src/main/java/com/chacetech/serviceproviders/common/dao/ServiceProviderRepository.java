@@ -1,7 +1,6 @@
 package com.chacetech.serviceproviders.common.dao;
 
-import com.chacetech.common.service.MspSequenceGeneratorService;
-import com.chacetech.serviceproviders.common.exception.ServiceProviderException;
+import com.chacetech.common.service.SequenceGeneratorService;
 import com.chacetech.serviceproviders.common.model.ManagedServiceProvider;
 import com.chacetech.serviceproviders.common.model.ManagedServiceProviderCreateRequest;
 import com.chacetech.serviceproviders.common.model.ManagedServiceProviderUpdateRequest;
@@ -24,15 +23,15 @@ public class ServiceProviderRepository implements  IServiceProviderRepository{
 
     private final MongoTemplate mongoTemplate;
     private final MongoConverter mongoConverter;
-    private final MspSequenceGeneratorService mspSequenceGeneratorService;
+    private final SequenceGeneratorService sequenceGeneratorService;
 
     @Autowired
     public ServiceProviderRepository(MongoTemplate mongoTemplate,
                                      MongoConverter mongoConverter,
-                                     MspSequenceGeneratorService mspSequenceGeneratorService) {
+                                     SequenceGeneratorService sequenceGeneratorService) {
         this.mongoTemplate = mongoTemplate;
         this.mongoConverter = mongoConverter;
-        this.mspSequenceGeneratorService = mspSequenceGeneratorService;
+        this.sequenceGeneratorService = sequenceGeneratorService;
     }
 
     public  List<ManagedServiceProvider> findAll() {
@@ -65,7 +64,7 @@ public class ServiceProviderRepository implements  IServiceProviderRepository{
 
     private ManagedServiceProvider createManagedServiceProvider(ManagedServiceProviderCreateRequest managedServiceProviderCreateRequest) {
         ManagedServiceProvider managedServiceProvider = new ManagedServiceProvider();
-        managedServiceProvider.setMspId(mspSequenceGeneratorService.generateSequence());
+        managedServiceProvider.setMspId(sequenceGeneratorService.generateSequence(ManagedServiceProvider.MANAGED_SERVICE_PROVIDER_SEQUENCE_NAME));
         managedServiceProvider.setMspName(managedServiceProviderCreateRequest.getMspName().toUpperCase());
 
         if (!StringUtils.isEmpty(managedServiceProviderCreateRequest.getAddress())) {

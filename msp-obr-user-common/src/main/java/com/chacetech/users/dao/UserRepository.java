@@ -7,14 +7,13 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.MongoConverter;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 
 @Repository
-public class UserRepository implements  IUserRepository{
+public class UserRepository {
+//        implements  IUserRepository{
 
     private static final String USERS_COLLECTION = "USERS";
 
@@ -38,8 +37,8 @@ public class UserRepository implements  IUserRepository{
         return users;
     }
 
-    public  List<User> findByUserName(String userName) {
-        Query query = new Query().addCriteria(Criteria.where("userName").is(userName));
+    public  List<User> findAllMspUsers(String mspName) {
+        Query query = new Query().addCriteria(Criteria.where("mspName").is(mspName));
 
         Sort sort = new Sort(Sort.Direction.ASC, "userName");
         query.with(sort);
@@ -49,7 +48,19 @@ public class UserRepository implements  IUserRepository{
         return users;
     }
 
-//    public void create(ManagedServiceProviderCreateRequest managedServiceProviderCreateRequest) {
+    public  List<User> findByUserName(String mspName, String userName) {
+        Query query = new Query().addCriteria(
+                Criteria.where("mspName").is(mspName).and("userName").is(userName));
+
+        Sort sort = new Sort(Sort.Direction.ASC, "userName");
+        query.with(sort);
+
+        List<User> users = mongoTemplate.find(query, User.class, USERS_COLLECTION);
+
+        return users;
+    }
+
+//    public void create(UserCreateRequest userCreateRequest) {
 //        ManagedServiceProvider managedServiceProvider = createManagedServiceProvider(managedServiceProviderCreateRequest);
 //        mongoTemplate.insert(managedServiceProvider, MANAGED_SERVICE_PROVIDERS_COLLECTION);
 //    }
@@ -96,7 +107,7 @@ public class UserRepository implements  IUserRepository{
 //
 //        return managedServiceProvider;
 //    }
-//
+
 //    public void update(ManagedServiceProvider managedServiceProvider, ManagedServiceProviderUpdateRequest managedServiceProviderUpdateRequest) {
 //        updateManagedServiceProvider(managedServiceProvider, managedServiceProviderUpdateRequest);
 //        org.bson.Document document = new org.bson.Document();

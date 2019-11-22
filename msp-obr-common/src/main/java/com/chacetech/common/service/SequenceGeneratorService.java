@@ -17,17 +17,17 @@ import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
 
 @Service
-public class MspSequenceGeneratorService {
+public class SequenceGeneratorService {
 
     private final MongoOperations mongoOperations;
 
     @Autowired
-    public MspSequenceGeneratorService(MongoOperations mongoOperations) {
+    public SequenceGeneratorService(MongoOperations mongoOperations) {
         this.mongoOperations = mongoOperations;
     }
 
-    public long generateSequence() {
-        Query query = new Query().addCriteria(Criteria.where("mspId").is("managed_service_provider_sequence"));
+    public long generateSequence(String sequenceName) {
+        Query query = new Query().addCriteria(Criteria.where("mspId").is(sequenceName));
         Update update = new Update().inc("seq", 1);
         FindAndModifyOptions findAndModifyOptions = new FindAndModifyOptions().returnNew(true).upsert(true);
         DatabaseSequence counter = mongoOperations.findAndModify(query,

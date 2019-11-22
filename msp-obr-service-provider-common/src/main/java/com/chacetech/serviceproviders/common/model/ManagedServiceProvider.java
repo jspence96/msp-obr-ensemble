@@ -13,7 +13,7 @@ public class ManagedServiceProvider implements Serializable {
     private static final long serialVersionUID = -6498095929493541232L;
 
     @Transient
-    public static final String SEQUENCE_NAME = "managed_service_provider_sequence";
+    public static final String MANAGED_SERVICE_PROVIDER_SEQUENCE_NAME = "managed_service_provider_sequence";
 
     @Id
     private String id;
@@ -26,12 +26,12 @@ public class ManagedServiceProvider implements Serializable {
     private String contactPerson;
     private String contactPhone;
 
-    public String getId() {
-        return id;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getId() {
+        return id;
     }
 
     public long getMspId() {
