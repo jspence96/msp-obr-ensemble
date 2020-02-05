@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @SpringBootApplication(exclude = AopAutoConfiguration.class)
 @ComponentScan(basePackages = {"com.chacetech"})
-@EnableMongoRepositories(basePackages = { "com.chactech.users.common.dao"})
+@EnableMongoRepositories(basePackages = { "com.chacetech.users.common.dao"})
 public class Application extends SpringBootServletInitializer {
 
     @Override

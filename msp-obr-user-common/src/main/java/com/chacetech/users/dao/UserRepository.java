@@ -48,7 +48,7 @@ public class UserRepository {
         return users;
     }
 
-    public  List<User> findByUserName(String mspName, String userName) {
+    public User findMspUserByName(String mspName, String userName) {
         Query query = new Query().addCriteria(
                 Criteria.where("mspName").is(mspName).and("userName").is(userName));
 
@@ -57,7 +57,7 @@ public class UserRepository {
 
         List<User> users = mongoTemplate.find(query, User.class, USERS_COLLECTION);
 
-        return users;
+        return users.get(0);
     }
 
 //    public void create(UserCreateRequest userCreateRequest) {

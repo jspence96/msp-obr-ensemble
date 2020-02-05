@@ -73,9 +73,9 @@ public class ServiceProviderControllerV1 {
         try {
             serviceProviderService.createManagedServiceProvider(managedServiceProviderCreateRequest);
 
-                ManagedServiceProviderResponse managedServiceProviderResponse =
+            ManagedServiceProviderResponse managedServiceProviderResponse =
                         new ManagedServiceProviderResponse(SUCCESS, "creation of service provider successful");
-                return ResponseEntity.status(HttpStatus.OK).body(managedServiceProviderResponse);
+            return ResponseEntity.status(HttpStatus.OK).body(managedServiceProviderResponse);
         } catch (Exception e) {
             LOGGER.error("createManagedServiceProvider failed - mspName: ",
                     managedServiceProviderCreateRequest.getMspName(), e);
@@ -93,6 +93,9 @@ public class ServiceProviderControllerV1 {
     )
     public ResponseEntity<ManagedServiceProviderResponse> updateManagedServiceProvider(
             @RequestBody ManagedServiceProviderUpdateRequest managedServiceProviderUpdateRequest) {
+
+        LOGGER.info("entered updateManagedServiceProvider - mspName: {}",
+                managedServiceProviderUpdateRequest.getMspName());
 
         try {
             serviceProviderService.updateManagedServiceProvider(managedServiceProviderUpdateRequest);
