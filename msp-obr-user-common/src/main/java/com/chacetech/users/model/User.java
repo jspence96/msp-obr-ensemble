@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 import java.util.List;
 
-@Document(collection = "USERS")
+@Document(collection = "USER")
 public class User implements  Serializable {
 
     private static final long serialVersionUID = 8674595378381933817L;
@@ -31,6 +31,10 @@ public class User implements  Serializable {
 
     public long getUserId() {
         return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public UserType getUserType() {

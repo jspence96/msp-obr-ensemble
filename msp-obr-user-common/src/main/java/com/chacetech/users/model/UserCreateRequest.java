@@ -10,7 +10,6 @@ public class UserCreateRequest implements Serializable {
     private static final long serialVersionUID = 22590641985997656L;
 
     private UserType userType;
-
     private String mspId;
     private String userName;
     private String password;

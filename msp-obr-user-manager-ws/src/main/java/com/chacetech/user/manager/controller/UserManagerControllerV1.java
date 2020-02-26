@@ -116,11 +116,8 @@ public class UserManagerControllerV1 {
         LOGGER.info("entered createUser - userName: {}", userCreateRequest.getUserName());
 
         try {
-            if (userCreateRequest.getUserType().equals(UserType.SUPER_USER)) {
-                // find user with userName and type - if it exists throw an error, else create it
-            } else {
-                // find user with mspId, userName and type, if it exists, throw an error, else create it
-            }
+            userManagerService.createUser(userCreateRequest);
+
 
             UserResponse userResponse = new UserResponse(SUCCESS, "creation of user successful");
             return ResponseEntity.status(HttpStatus.OK).body(userResponse);
