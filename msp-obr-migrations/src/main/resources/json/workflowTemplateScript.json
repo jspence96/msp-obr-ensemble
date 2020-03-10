@@ -1,0 +1,32 @@
+[
+  {
+    "workflowTemplateId" : "workFlowTemplate_001",
+    "steps" : [
+      {
+        "order" : "1.0",
+        "stepName" : "stepNumber1",
+        "stepDescription" : "stepNumber1 descrption"
+      },
+      {
+        "order" : "5.0",
+        "stepName" : "stepNumber2",
+        "stepDescription" : "stepNumber2 descrption"
+      },
+      {
+        "order" : "10.0",
+        "stepName" : "stepNumber3",
+        "stepDescription" : "stepNumber3 descrption"
+      },
+      {
+        "order" : "15.0",
+        "stepName" : "stepNumber4",
+        "stepDescription" : "stepNumber4 descrption"
+      },
+      {
+        "order" : "20.0",
+        "stepName" : "stepNumber5",
+        "stepDescription" : "stepNumber5 descrption"
+      }
+    ]
+  }
+]

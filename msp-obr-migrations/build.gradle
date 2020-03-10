@@ -1,0 +1,46 @@
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "src/main/resources"
+            include "**/*.properties"
+            include "**/*.json"
+        }
+    }
+}
+
+bootJar {
+    enabled = true
+    classifier = 'boot'
+}
+
+jar {
+    manifest {
+        attributes "Implementation-Title" : "MSP OBR Managed Service Providers",
+                "Implementation-Version" : 1.0
+    }
+    enabled = true
+}
+
+dependencies {
+    compile project(':msp-obr-service-provider-common')
+    compile "org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}"
+    compile('com.github.mongobee:mongobee:0.13')
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-amqp:${springBootVersion}")
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+
+    compile('com.google.guava:guava:22.0')
+    compile('com.google.code.gson:gson:2.8.5')
+    compile('org.apache.commons:commons-collections4:4.1')
+    compile("com.openpojo:openpojo:0.8.4")
+}

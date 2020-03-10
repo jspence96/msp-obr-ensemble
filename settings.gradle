@@ -6,4 +6,5 @@ include 'msp-obr-common'
 //include 'msp-obr-user-service-ws'
 //include 'msp-obr-user-manager-ws'
 include 'msp-obr-user-manager-ws'
+include 'msp-obr-migrations'
 
